@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Coin : MonoBehaviour {
 	public float rotationSpeed;
+	public int coinValue;
 
 	// Use this for initialization
 	void Start () {
@@ -10,12 +11,13 @@ public class Coin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.rigidbody.MoveRotation(new Quaternion(0, 10, 0, 0));
+		transform.Rotate(Vector3.up * Time.deltaTime, Space.Self);
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		/*if (collision == Player) {
-
-		}*/
+		if ( collision.gameObject.GetComponent<Player>() != null) {
+			Destroy(this.gameObject);
+			LevelManager.Instance.score += this.coinValue;
+		}
 	}
 }
