@@ -14,6 +14,5 @@ public class PlayerCamera : MonoBehaviour {
 	void FixedUpdate () {
 		Vector3 desired = this.following.transform.position + this.difference;
 		this.transform.position += (desired - this.transform.position) * Time.fixedDeltaTime * this.moveSpeed;
-		this.transform.rotation = Quaternion.LookRotation(this.following.transform.position - this.transform.position);
 	}
 }
