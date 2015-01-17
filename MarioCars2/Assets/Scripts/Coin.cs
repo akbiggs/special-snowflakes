@@ -16,9 +16,9 @@ public class Coin : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		if ( collision.gameObject.GetComponent<Player>() != null) {
+		if (collision.gameObject.GetComponent<Player>() != null) {
 			Destroy(this.gameObject);
-			LevelManager.Instance.score += this.coinValue;
+			LevelState.Instance.score += this.coinValue;
 		}
 	}
 }
