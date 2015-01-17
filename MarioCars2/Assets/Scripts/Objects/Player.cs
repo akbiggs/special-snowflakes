@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 
 	public GameObject forwardReference;
 
+	public Animation charAnimation;
+
 	// TODO: This is hacky - plz fix.
 	public bool isGrounded {
 		get { return Physics.Raycast(new Ray(this.transform.position, Vector3.down), this.jumpRayLength); }
@@ -37,6 +39,14 @@ public class Player : MonoBehaviour {
 		sideways = sideways.normalized;
 		Vector3 direction = Input.GetAxis("Horizontal") * sideways + Input.GetAxis("Vertical") * forward;
 
+		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
+			//If the player is attempting to move in any direction.
+			this.charAnimation.Play("Run");
+		} else {
+			//If the player is not pressing any move keys.
+			this.charAnimation.Play("Idle_1");
+		}
+
 		Vector3 desiredVelocity = direction * maxVelocity;
 		Vector3 currentVelocity = this.rigidbody.velocity;
 		currentVelocity.y = 0;
@@ -52,5 +62,9 @@ public class Player : MonoBehaviour {
 		} else if (this.rigidbody.velocity.y > this.jumpReleaseMax) {
 			this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 		}
+
+		Vector3 lookDir = new Vector3(direction.x, 0, direction.z);
+		//this.transform.Rotate(lookDir);
+		this.transform.LookAt(this.transform.position + (lookDir * 5));
 	}
 }
