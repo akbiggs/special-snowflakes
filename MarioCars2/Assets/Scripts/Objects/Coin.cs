@@ -7,7 +7,7 @@ public class Coin : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		renderer.material.color = new Color(0.5f,0,0);
+		renderer.material.color = new Color(1f,1f,0);
 	}
 	
 	// Update is called once per frame

@@ -27,13 +27,13 @@ public class SinkBlock : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.GetComponent<Player>() != null) {
-			this.rigidbody.AddForce(new Vector3(0, downForce, 0));
 		}
 	}
 
 	void OnCollisionExit(Collision collision) {
 		if (collision.gameObject.GetComponent<Player>() != null) {
 			this.rigidbody.velocity = Vector3.zero;
+			//float distToOrigin = this.transform.
 			this.rigidbody.AddForce(new Vector3(0, upForce, 0));
 		}
 	}
