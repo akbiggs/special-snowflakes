@@ -63,9 +63,6 @@ public class Player : MonoBehaviour {
 		}
 
 		this.animator.SetFloat("Speed", direction.magnitude);
-		//if (this.animator.GetCurrentAnimatorStateInfo(0).nameHash == "Run") {
-
-		//}
 	}
 
 	public bool isGrounded() {
