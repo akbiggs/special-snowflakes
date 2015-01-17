@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class MovingBlock : MonoBehaviour {
+	public Vector3 moveDirection;
+	public float speed;
 
 	// Use this for initialization
 	void Start () {
