@@ -2,25 +2,25 @@
 using System.Collections;
 
 public class SinkBlock : MonoBehaviour {
-	private bool playerIsOnMe;
-
-	public float resetForce;
+	public float downForce;
+	public float upForce;
 
 	private float originalY;
 
 	// Use this for initialization
 	void Start () {
-		this.playerIsOnMe = false;
 		this.originalY = this.transform.position.y;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (this.playerIsOnMe) {
-			//Vector3 pos = this.transform.position;
-			//pos.y += (-this.fallRate * Time.deltaTime);
+		if (this.transform.position.y > this.originalY) {
+			this.rigidbody.velocity = Vector3.zero;
 
-			//this.transform.position = pos;
+			Vector3 pos = this.transform.position;
+			pos.y = this.originalY;
+
+			this.transform.position = pos;
 			//Debug.Log("HERE");
 		}
 	}
@@ -28,17 +28,14 @@ public class SinkBlock : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.GetComponent<Player>() != null) {
-			Debug.Log("I HIT THE PLAYER");
-			this.playerIsOnMe = true;
-			this.rigidbody.isKinematic = false;
+			this.rigidbody.AddForce(new Vector3(0, downForce, 0));
 		}
 	}
 
 	void OnCollisionExit(Collision collision) {
 		if (collision.gameObject.GetComponent<Player>() != null) {
-			Debug.Log("NO LONGER HITTING THE PLAYER");
-			this.playerIsOnMe = false;
-			this.rigidbody.AddForce(new Vector3(0, resetForce, 0));
+			this.rigidbody.velocity = Vector3.zero;
+			this.rigidbody.AddForce(new Vector3(0, upForce, 0));
 		}
 	}
 }
