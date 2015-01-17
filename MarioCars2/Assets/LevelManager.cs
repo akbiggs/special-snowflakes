@@ -5,11 +5,16 @@ using System.Collections.Generic;
 public class LevelManager : Singleton<LevelManager> {
 
 	private string currentLevel;
-	private string[] remainingLevels = { "GoalScene", "RandomScene" };
+	private List<string> remainingLevels = new List<string>() { "GoalScene", "GoalScene" };
 
 	protected LevelManager() { }
 
-	public void NextLevel() {
-		Application.LoadLevel(remainingLevels.Pop());
+	public bool NextLevel() {
+		if (this.remainingLevels.Count > 0) {
+			Application.LoadLevel(remainingLevels.Pop());
+			return true;
+		}
+
+		return false;
 	}
 }
