@@ -7,7 +7,6 @@ public class LevelState : MonoBehaviour {
 
 	public GameObject respawnPoint;
 	public Player player;
-	public int score;
 
 	void Awake() {
 		Instance = this;
@@ -15,13 +14,5 @@ public class LevelState : MonoBehaviour {
 
 	void OnDestroy() {
 		Instance = null;
-	}
-
-	void Start () {
-	
-	}
-	
-	void Update () {
-	
 	}
 }

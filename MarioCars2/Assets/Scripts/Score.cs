@@ -10,6 +10,6 @@ public class Score : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.guiText.text = "Score: " + LevelManager.Instance.score;
+		this.guiText.text = "Score: " + LevelState.Instance.score;
 	}
 }

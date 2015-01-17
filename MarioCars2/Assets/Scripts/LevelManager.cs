@@ -7,6 +7,7 @@ public class LevelManager : Singleton<LevelManager> {
 	private string currentLevel;
 
 	private List<string> remainingLevels = new List<string>() { "GoalScene", "GoalScene" };
+	public int score;
 
 	protected LevelManager() { }
 
