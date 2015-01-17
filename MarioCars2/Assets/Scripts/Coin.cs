@@ -15,8 +15,8 @@ public class Coin : MonoBehaviour {
 		transform.Rotate(new Vector3(rotationSpeed, 0, 0) * Time.deltaTime);
 	}
 
-	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.GetComponent<Player>() != null) {
+	void OnTriggerEnter(Collider collider) {
+		if (collider.gameObject.GetComponent<Player>() != null) {
 			Destroy(this.gameObject);
 			LevelState.Instance.score += this.coinValue;
 		}
