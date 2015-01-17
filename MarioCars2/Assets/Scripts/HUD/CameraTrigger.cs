@@ -24,6 +24,7 @@ public class CameraTrigger : MonoBehaviour {
 
 			Quaternion oldRotation = pCamera.targetRotation;
 			pCamera.targetRotation = this.newCameraRotation;
+			Debug.Log(pCamera.targetRotation.eulerAngles.ToString());
 			this.newCameraRotation = oldRotation;
 		}
 	}

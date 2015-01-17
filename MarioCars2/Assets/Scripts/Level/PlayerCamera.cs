@@ -20,9 +20,9 @@ public class PlayerCamera : MonoBehaviour {
 		this.transform.position += (desired - this.transform.position) * Time.fixedDeltaTime * this.moveSpeed;
 
 		if (Quaternion.Angle(this.targetRotation, this.transform.localRotation) > 0.001f) {
-			this.transform.localRotation = Quaternion.RotateTowards(this.transform.localRotation,
+			this.transform.localRotation = Quaternion.Lerp(this.transform.localRotation,
 			                                                        this.targetRotation,
-			                                                        this.rotationSpeed);
+			                                                        this.rotationSpeed * Time.fixedDeltaTime);
 		}
 	}
 }
