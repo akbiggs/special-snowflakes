@@ -33,6 +33,8 @@ public class Player : MonoBehaviour {
 		Vector3 sideways = Camera.main.transform.right;
 		forward.y = 0;
 		sideways.y = 0;
+		forward = forward.normalized;
+		sideways = sideways.normalized;
 		Vector3 direction = Input.GetAxis("Horizontal") * sideways + Input.GetAxis("Vertical") * forward;
 
 		Vector3 desiredVelocity = direction * maxVelocity;

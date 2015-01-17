@@ -14,6 +14,7 @@ public class CameraParams : MonoBehaviour {
 		Gizmos.color = Color.white;
 		Gizmos.DrawLine(this.transform.position, this.transform.parent.position);
 		Gizmos.DrawWireSphere(this.transform.position, 1);
+		Gizmos.DrawWireSphere(this.transform.parent.position, 1);
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * 3f);
 	}
