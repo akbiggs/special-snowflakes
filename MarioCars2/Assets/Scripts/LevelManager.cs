@@ -11,6 +11,10 @@ public class LevelManager : Singleton<LevelManager> {
 
 	protected LevelManager() { }
 
+	public void ReloadCurrentLevel() {
+		Application.LoadLevel(Application.loadedLevelName);
+	}
+
 	public bool NextLevel() {
 		if (this.remainingLevels.Count > 0) {
 			Application.LoadLevel(remainingLevels.Pop());

@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 	public float jumpRayLength = 1;
 	public float jumpReleaseMax = 0;
 
+	public GameObject forwardReference;
+
 	// TODO: This is hacky - plz fix.
 	public bool isGrounded {
 		get { return Physics.Raycast(new Ray(this.transform.position, Vector3.down), this.jumpRayLength); }
