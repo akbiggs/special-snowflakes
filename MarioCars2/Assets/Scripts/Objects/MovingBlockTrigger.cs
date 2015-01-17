@@ -21,7 +21,6 @@ public class MovingBlockTrigger : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision c) {
-		Debug.Log("COLLIDED");
 		MovingBlock collidedBlock = c.gameObject.GetComponent<MovingBlock>();
 		if (collidedBlock != null) {
 			collidedBlock.ChangeDirection();
