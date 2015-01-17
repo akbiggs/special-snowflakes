@@ -3,8 +3,15 @@ using System.Collections;
 
 public class CameraTrigger : MonoBehaviour {
 
-	public Vector3 newCameraOffset;
-	public Vector3 newCameraRotation;
+	private Vector3 newCameraOffset;
+	private Quaternion newCameraRotation;
+
+	void Start() {
+		Transform parameters = this.transform.FindChild("CameraParams");
+
+		this.newCameraOffset = parameters.localPosition;
+		this.newCameraRotation = parameters.localRotation;
+	}
 
 	void OnTriggerExit(Collider collider) {
 		Player player = collider.gameObject.GetComponent<Player>();
@@ -16,8 +23,8 @@ public class CameraTrigger : MonoBehaviour {
 			this.newCameraOffset = oldOffset;
 
 			Quaternion oldRotation = pCamera.targetRotation;
-			pCamera.targetRotation = Quaternion.Euler(this.newCameraRotation);
-			this.newCameraRotation = oldRotation.eulerAngles;
+			pCamera.targetRotation = this.newCameraRotation;
+			this.newCameraRotation = oldRotation;
 		}
 	}
 }
