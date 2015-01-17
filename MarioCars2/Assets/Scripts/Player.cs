@@ -38,7 +38,8 @@ public class Player : MonoBehaviour {
 		currentVelocity.y = 0;
 
 		Vector3 diff = desiredVelocity - currentVelocity;
-		this.rigidbody.AddForce(diff * movementForce);
+		float force = this.isGrounded ? this.movementForce : this.midairForce; 
+		this.rigidbody.AddForce(diff * force);
 
 		if (Input.GetAxis("Fire1") > 0) {
 			if (this.isGrounded) {
