@@ -12,7 +12,7 @@ public class Shooter : Enemy {
 
 	// Use this for initialization
 	void Start () {
-		this.fireTimer = this.fireInterval;
+		this.fireTimer = 0;
 	}
 	
 	// Update is called once per frame
@@ -23,14 +23,22 @@ public class Shooter : Enemy {
 		Debug.DrawRay(this.transform.position, visionDirection);
 
 		RaycastHit hit;
+		bool hitObject = false;
+
 		if (Physics.Raycast(this.transform.position, visionDirection, out hit, this.visionDistance)) {
 			if (hit.collider.gameObject.GetComponent<Damageable>() != null) {
+				hitObject = true;
+
 				this.fireTimer += Time.deltaTime;
 				if (this.fireTimer > this.fireInterval) {
 					this.FireBullet();
 					this.fireTimer = 0;
 				}
 			}
+		}
+
+		if (!hitObject) {
+			this.fireTimer = 0;
 		}
 	}
 
