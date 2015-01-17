@@ -56,7 +56,11 @@ public class Player : MonoBehaviour {
 		if (direction.magnitude > this.minTurnForce) {
 			this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(direction), this.turnSpeed * Time.deltaTime);
 		}
+
 		this.animator.SetFloat("Speed", direction.magnitude);
+		//if (this.animator.GetCurrentAnimatorStateInfo(0).nameHash == "Run") {
+
+		//}
 	}
 
 	public bool isGrounded() {
