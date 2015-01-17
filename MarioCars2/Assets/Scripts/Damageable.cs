@@ -16,6 +16,8 @@ public class Damageable : MonoBehaviour {
 	}
 
 	public void Die() {
-		this.OnDeath();
+		if (this.OnDeath != null) {
+			this.OnDeath();
+		}
 	}
 }

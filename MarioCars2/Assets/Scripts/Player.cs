@@ -4,9 +4,18 @@ using System.Collections;
 [RequireComponent(typeof(Damageable))]
 public class Player : MonoBehaviour {
 
+	public float maxVelocity = 5;
 	public float movementForce = 10;
-	public float jumpForce = 10;
+	public float midairForce = 5;
+
+	public float jumpPower = 10;
 	public float jumpRayLength = 1;
+	public float jumpReleaseMax = 0;
+
+	// TODO: This is hacky - plz fix.
+	public bool isGrounded {
+		get { return Physics.Raycast(new Ray(this.transform.position, Vector3.down), this.jumpRayLength); }
+	}
 
 	void Start () {
 		this.GetComponent<Damageable>().OnDeath += OnDeath;
@@ -22,16 +31,21 @@ public class Player : MonoBehaviour {
 		Vector3 sideways = Camera.main.transform.right;
 		forward.y = 0;
 		sideways.y = 0;
-		Vector3 force = Input.GetAxis("Horizontal") * sideways + Input.GetAxis("Vertical") * forward;
-		force *= this.movementForce;
-		//force.y = this.rigidbody.velocity.y;
-		this.rigidbody.AddForce(force);
+		Vector3 direction = Input.GetAxis("Horizontal") * sideways + Input.GetAxis("Vertical") * forward;
 
-		// This is hacky, try something better soon!
+		Vector3 desiredVelocity = direction * maxVelocity;
+		Vector3 currentVelocity = this.rigidbody.velocity;
+		currentVelocity.y = 0;
+
+		Vector3 diff = desiredVelocity - currentVelocity;
+		this.rigidbody.AddForce(diff * movementForce);
+
 		if (Input.GetAxis("Fire1") > 0) {
-			if (Physics.Raycast(new Ray(this.transform.position, Vector3.down), this.jumpRayLength)) {
-				this.rigidbody.AddForce(Vector3.up * this.jumpForce);
+			if (this.isGrounded) {
+				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
+		} else if (this.rigidbody.velocity.y > this.jumpReleaseMax) {
+			this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 		}
 	}
 }
