@@ -11,7 +11,7 @@ public class MovingBlock : MonoBehaviour {
 			this.rigidbody.constraints |= RigidbodyConstraints.FreezePositionY |
 										 RigidbodyConstraints.FreezeRotationX | 
 										 RigidbodyConstraints.FreezeRotationY |
-										 RigidbodyConstraints.FreezePositionZ;
+										 RigidbodyConstraints.FreezeRotationZ;
 		}
 		else if ( this.isVerticalMovement() ) {
 			this.rigidbody.isKinematic = true;
