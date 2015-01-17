@@ -5,7 +5,8 @@ public class Swiper : Enemy {
 
 	public GameObject attachedBlock;
 	public Vector3 movementAxis;
-	public float movementSpeed;
+	public float movementSpeed = 0.1f;
+	public float switchDirectionTime = 0.75f;
 
 	private float timeAtEdge = 0;
 
@@ -29,7 +30,7 @@ public class Swiper : Enemy {
 	void Update () {
 		if (this.IsAtEdge()) {
 			this.timeAtEdge += Time.deltaTime;
-			if (this.timeAtEdge >= 0.75f) {
+			if (this.timeAtEdge >= this.switchDirectionTime) {
 				this.timeAtEdge = 0;
 				this.movementAxis *= -1;
 				this.transform.position += this.movementAxis * 0.1f;
