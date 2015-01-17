@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Damageable))]
 public class Player : MonoBehaviour {
 
 	public float movementForce = 10;
 	public float jumpForce = 10;
 
 	void Start () {
-	
+		this.GetComponent<Damageable>().OnDeath += OnDeath;
+	}
+
+	void OnDeath() {
+		this.transform.position = LevelState.Instance.respawnPoint.transform.position;
+		this.rigidbody.velocity = Vector3.zero;
 	}
 	
 	void Update () {
