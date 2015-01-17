@@ -21,7 +21,6 @@ public class SinkBlock : MonoBehaviour {
 			pos.y = this.originalY;
 
 			this.transform.position = pos;
-			//Debug.Log("HERE");
 		}
 	}
 
