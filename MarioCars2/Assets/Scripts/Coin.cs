@@ -7,11 +7,12 @@ public class Coin : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		renderer.material.color = new Color(0.5f,0,0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate(Vector3.up * Time.deltaTime, Space.Self);
+		transform.Rotate(new Vector3(rotationSpeed, 0, 0) * Time.deltaTime);
 	}
 
 	void OnCollisionEnter(Collision collision) {
