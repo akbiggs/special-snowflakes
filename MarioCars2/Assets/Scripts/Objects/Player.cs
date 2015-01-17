@@ -24,8 +24,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnDeath() {
-		this.transform.position = LevelState.Instance.respawnPoint.transform.position;
-		this.rigidbody.velocity = Vector3.zero;
+//		this.transform.position = LevelState.Instance.respawnPoint.transform.position;
+//		this.rigidbody.velocity = Vector3.zero;
+
+		LevelManager.Instance.ReloadCurrentLevel();
 	}
 	
 	void Update () {
