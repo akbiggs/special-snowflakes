@@ -7,14 +7,14 @@ public class Player : MonoBehaviour {
 	public float maxVelocity = 5;
 	public float movementForce = 10;
 	public float midairForce = 5;
+	public float turnSpeed = 4;
+	public float minTurnForce = 0.1f;
 
 	public float jumpPower = 10;
 	public float jumpRayLength = 1;
 	public float jumpReleaseMax = 0;
 
-	public GameObject forwardReference;
-
-	public Animation charAnimation;
+	public Animator animator;
 
 	float prevFireAxis = 0;
 
@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Update () {
+		// Get the movement directon from the axis.
 		Vector3 forward = Camera.main.transform.forward;
 		Vector3 sideways = Camera.main.transform.right;
 		forward.y = 0;
@@ -38,22 +39,14 @@ public class Player : MonoBehaviour {
 		sideways = sideways.normalized;
 		Vector3 direction = Input.GetAxis("Horizontal") * sideways + Input.GetAxis("Vertical") * forward;
 
-		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
-			//If the player is attempting to move in any direction.
-			this.charAnimation.Play("Run");
-		} else {
-			//If the player is not pressing any move keys.
-			this.charAnimation.Play("Idle_1");
-		}
-
+		// Find the force that we need to add the the player.
 		Vector3 desiredVelocity = direction * maxVelocity;
-		Vector3 currentVelocity = this.rigidbody.velocity;
-		currentVelocity.y = 0;
-
+		Vector3 currentVelocity = this.rigidbody.velocity.SetY(0);
 		Vector3 diff = desiredVelocity - currentVelocity;
 		float force = this.isGrounded() ? this.movementForce : this.midairForce; 
 		this.rigidbody.AddForce(diff * force);
 
+		// Allow jumping.
 		if (Input.GetAxis("Fire1") > 0) {
 			if (this.isGrounded()) {
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
@@ -62,10 +55,17 @@ public class Player : MonoBehaviour {
 			this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 		}
 
-		Vector3 lookDir = new Vector3(direction.x, 0, direction.z);
-		this.transform.LookAt(this.transform.position + (lookDir * 5));
-
 		this.prevFireAxis = Input.GetAxis("Fire1");
+
+		// Rotate the player to face the direction it is moving.
+		if (direction.magnitude > this.minTurnForce) {
+			this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(direction), this.turnSpeed * Time.deltaTime);
+		}
+
+		this.animator.SetFloat("Speed", direction.magnitude);
+		//if (this.animator.GetCurrentAnimatorStateInfo(0).nameHash == "Run") {
+
+		//}
 	}
 
 	public bool isGrounded() {
