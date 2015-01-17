@@ -16,10 +16,6 @@ public class Player : MonoBehaviour {
 
 	public Animation charAnimation;
 
-	// TODO: This is hacky - plz fix.
-	public bool isGrounded {
-		get { return Physics.Raycast(new Ray(this.transform.position, Vector3.down), this.jumpRayLength); }
-	}
 
 	void Start () {
 		this.GetComponent<Damageable>().OnDeath += OnDeath;
@@ -52,11 +48,11 @@ public class Player : MonoBehaviour {
 		currentVelocity.y = 0;
 
 		Vector3 diff = desiredVelocity - currentVelocity;
-		float force = this.isGrounded ? this.movementForce : this.midairForce; 
+		float force = this.isGrounded() ? this.movementForce : this.midairForce; 
 		this.rigidbody.AddForce(diff * force);
 
 		if (Input.GetAxis("Fire1") > 0) {
-			if (this.isGrounded) {
+			if (this.isGrounded()) {
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
 		} else if (this.rigidbody.velocity.y > this.jumpReleaseMax) {
@@ -66,5 +62,22 @@ public class Player : MonoBehaviour {
 		Vector3 lookDir = new Vector3(direction.x, 0, direction.z);
 		//this.transform.Rotate(lookDir);
 		this.transform.LookAt(this.transform.position + (lookDir * 5));
+	}
+
+	public bool isGrounded() {
+		GameObject thingBeingStoodOn;
+		return this.isGrounded(out thingBeingStoodOn);
+	}
+
+	public bool isGrounded(out GameObject thingBeingStoodOn) {
+		RaycastHit hit;
+		bool result = Physics.Raycast(new Ray(this.transform.position, Vector3.down), out hit, this.jumpRayLength);
+		if (result) {
+			thingBeingStoodOn = hit.collider.gameObject;
+		} else {
+			thingBeingStoodOn = null;
+		}
+
+		return result;
 	}
 }
