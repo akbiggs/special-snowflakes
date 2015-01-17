@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
 	public float movementForce = 10;
 	public float jumpForce = 10;
+	public float jumpRayLength = 1;
 
 	void Start () {
 		this.GetComponent<Damageable>().OnDeath += OnDeath;
@@ -23,11 +24,12 @@ public class Player : MonoBehaviour {
 		sideways.y = 0;
 		Vector3 force = Input.GetAxis("Horizontal") * sideways + Input.GetAxis("Vertical") * forward;
 		force *= this.movementForce;
+		//force.y = this.rigidbody.velocity.y;
 		this.rigidbody.AddForce(force);
 
 		// This is hacky, try something better soon!
 		if (Input.GetAxis("Fire1") > 0) {
-			if (Physics.Raycast(new Ray(this.transform.position, Vector3.down), 1f)) {
+			if (Physics.Raycast(new Ray(this.transform.position, Vector3.down), this.jumpRayLength)) {
 				this.rigidbody.AddForce(Vector3.up * this.jumpForce);
 			}
 		}
