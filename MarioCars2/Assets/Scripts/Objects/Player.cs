@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 
 	public Animation charAnimation;
 
+	float prevFireAxis = 0;
 
 	void Start () {
 		this.GetComponent<Damageable>().OnDeath += OnDeath;
@@ -57,13 +58,14 @@ public class Player : MonoBehaviour {
 			if (this.isGrounded()) {
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
-		} else if (this.rigidbody.velocity.y > this.jumpReleaseMax) {
+		} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
 			this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 		}
 
 		Vector3 lookDir = new Vector3(direction.x, 0, direction.z);
-		//this.transform.Rotate(lookDir);
 		this.transform.LookAt(this.transform.position + (lookDir * 5));
+
+		this.prevFireAxis = Input.GetAxis("Fire1");
 	}
 
 	public bool isGrounded() {
