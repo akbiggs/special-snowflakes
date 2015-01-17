@@ -6,6 +6,8 @@ public class LevelState : MonoBehaviour {
 	public static LevelState Instance;
 
 	public GameObject respawnPoint;
+	public Player player;
+	public int score;
 
 	void Awake() {
 		Instance = this;
