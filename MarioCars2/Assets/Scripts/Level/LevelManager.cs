@@ -23,4 +23,8 @@ public class LevelManager : Singleton<LevelManager> {
 
 		return false;
 	}
+
+	public void GoToLevel(string level) {
+		Application.LoadLevel(level);
+	}
 }
