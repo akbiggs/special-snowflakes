@@ -76,6 +76,11 @@ public class Player : MonoBehaviour {
 		if (direction.magnitude > this.minTurnForce) {
 			this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(direction), this.turnSpeed * Time.deltaTime);
 		}
+
+		// Edge case to ensure the player dies.
+		if (this.transform.position.y < -200) {
+			this.GetComponent<Damageable>().Die();
+		}
 	}
 
 	void OnDeath() {
