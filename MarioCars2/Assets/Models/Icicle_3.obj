@@ -1,0 +1,14 @@
+# Blender v2.69 (sub 0) OBJ File: 'icicle_3.blend'
+# www.blender.org
+mtllib Icicle_3.mtl
+o Cube
+v 1.073008 -1.010360 -0.599192
+v -1.343525 -0.937479 0.748886
+v -1.343524 -1.010360 -1.426992
+v -0.536294 2.292287 -0.389756
+usemtl Material
+s off
+f 1 4 2
+f 1 2 3
+f 2 4 3
+f 4 1 3
