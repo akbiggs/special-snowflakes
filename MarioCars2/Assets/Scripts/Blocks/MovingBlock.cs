@@ -5,6 +5,9 @@ public class MovingBlock : MonoBehaviour {
 	//Note, you can only move in one direction at once (either horizontal or vertical)
 	public Vector3 moveDirection;
 
+	//Only start the movement once the player has touched the block.
+	public bool triggerOnPlayerTouch;
+
 	// Use this for initialization
 	void Start () {
 		if ( this.isHorizontalMovement() ) {
@@ -20,7 +23,7 @@ public class MovingBlock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (this.isHorizontalMovement()) {
+		if (this.isHorizontalMovement() && !triggerOnPlayerTouch) {
 			this.rigidbody.velocity = moveDirection;
 		}
 	}
@@ -29,6 +32,12 @@ public class MovingBlock : MonoBehaviour {
 		if (this.isVerticalMovement()) {
 			Vector3 newPos = this.transform.position + (this.moveDirection * Time.deltaTime);
 			this.transform.position = newPos;
+		}
+	}
+
+	public void OnCollisionEnter(Collision c) {
+		if (c.gameObject.GetComponent<Player>() != null) {
+			this.triggerOnPlayerTouch = false;
 		}
 	}
 

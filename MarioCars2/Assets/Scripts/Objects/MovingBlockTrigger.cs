@@ -13,7 +13,7 @@ public class MovingBlockTrigger : MonoBehaviour {
 	
 	}
 
-	void OnTriggerExit(Collider c) {
+	void OnTriggerEnter(Collider c) {
 		MovingBlock collidedBlock = c.gameObject.GetComponent<MovingBlock>();
 		if (collidedBlock != null) {
 			collidedBlock.ChangeDirection();
@@ -23,6 +23,7 @@ public class MovingBlockTrigger : MonoBehaviour {
 	void OnCollisionEnter(Collision c) {
 		MovingBlock collidedBlock = c.gameObject.GetComponent<MovingBlock>();
 		if (collidedBlock != null) {
+			Debug.Log("Change direction of moving block");
 			collidedBlock.ChangeDirection();
 		}
 	}
