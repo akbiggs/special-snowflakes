@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
 	public GameObject deathParticlesPrefab;
 	public Texture whiteTexture;
 
+	public AudioClip jumpSound;
+
 	private Damageable damagable;
 	private float prevFireAxis = 0;
 
@@ -63,6 +65,9 @@ public class Player : MonoBehaviour {
 		// Allow jumping.
 		if (Input.GetAxis("Fire1") > 0) {
 			if (this.IsGrounded()) {
+				//Start the jump.
+				AudioSource.PlayClipAtPoint(this.jumpSound, this.transform.position);
+
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
 		} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
