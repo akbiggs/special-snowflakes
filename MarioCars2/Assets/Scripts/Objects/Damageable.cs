@@ -5,6 +5,7 @@ using System;
 public class Damageable : MonoBehaviour {
 
 	public int health = 1;
+	public bool deadalrady = false;
 
 	public event Action OnDeath;
 	public bool IsDead { get { return this.health <= 0; } }
@@ -17,6 +18,10 @@ public class Damageable : MonoBehaviour {
 	}
 
 	public void Die() {
+		if (this.deadalrady)
+			return;
+
+		this.deadalrady = true;
 		this.health = 0;
 		if (this.OnDeath != null) {
 			this.OnDeath();
