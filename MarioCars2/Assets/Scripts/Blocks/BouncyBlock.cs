@@ -18,7 +18,7 @@ public class BouncyBlock : MonoBehaviour {
 		Player player = c.gameObject.GetComponent<Player>();
 		if (player != null) {
 			GameObject hitObject;
-			bool isGrounded = player.isGrounded(out hitObject);
+			bool isGrounded = player.IsGrounded(out hitObject);
 
 			if (isGrounded && hitObject == this.gameObject) {
 				player.transform.position += Vector3.up * 0.1f;
