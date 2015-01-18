@@ -9,8 +9,8 @@ public class CameraTrigger : MonoBehaviour {
 	void Start() {
 		Transform parameters = this.transform.FindChild("CameraParams");
 
-		this.newCameraOffset = parameters.localPosition;
-		this.newCameraRotation = parameters.localRotation;
+		this.newCameraOffset = parameters.position - this.transform.position;
+		this.newCameraRotation = parameters.rotation;
 	}
 
 	void OnTriggerExit(Collider collider) {

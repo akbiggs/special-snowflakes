@@ -16,9 +16,10 @@ public class Damageable : MonoBehaviour {
 	}
 
 	public void Die() {
-		LevelManager.Instance.ReloadCurrentLevel();
-		/*if (this.OnDeath != null) {
+		if (this.OnDeath != null) {
 			this.OnDeath();
-		}*/
+		} else {
+			GameObject.Destroy(this.gameObject);
+		}
 	}
 }

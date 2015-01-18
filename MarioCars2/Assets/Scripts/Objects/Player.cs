@@ -16,14 +16,17 @@ public class Player : MonoBehaviour {
 
 	public Animator animator;
 
+	float prevFireAxis = 0;
 
 	void Start () {
 		this.GetComponent<Damageable>().OnDeath += OnDeath;
 	}
 
 	void OnDeath() {
-		this.transform.position = LevelState.Instance.respawnPoint.transform.position;
-		this.rigidbody.velocity = Vector3.zero;
+//		this.transform.position = LevelState.Instance.respawnPoint.transform.position;
+//		this.rigidbody.velocity = Vector3.zero;
+
+		LevelManager.Instance.ReloadCurrentLevel();
 	}
 	
 	void Update () {
@@ -48,9 +51,11 @@ public class Player : MonoBehaviour {
 			if (this.isGrounded()) {
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
-		} else if (this.rigidbody.velocity.y > this.jumpReleaseMax) {
+		} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
 			this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 		}
+
+		this.prevFireAxis = Input.GetAxis("Fire1");
 
 		// Rotate the player to face the direction it is moving.
 		if (direction.magnitude > this.minTurnForce) {

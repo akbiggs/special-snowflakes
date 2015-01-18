@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
 			damageableObject.Damage(this.damage);
 		}
 
-		Debug.Log(other.gameObject.name);
+		Debug.Log("Killed " + other.gameObject.name);
 
 		GameObject.Destroy(this.gameObject);
 	}

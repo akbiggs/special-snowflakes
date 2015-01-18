@@ -16,16 +16,13 @@ public class BouncyBlock : MonoBehaviour {
 
 	void OnCollisionEnter(Collision c) {
 		Player player = c.gameObject.GetComponent<Player>();
-		if (player != null)
-		{
-			Debug.Log ("Hit the bouncy");
-
+		if (player != null) {
 			GameObject hitObject;
 			bool isGrounded = player.isGrounded(out hitObject);
 
 			if (isGrounded && hitObject == this.gameObject) {
-				Debug.Log("The hit was on top.");
-				player.rigidbody.AddForce(new Vector3(0, this.bouncyForce, 0));
+				player.transform.position += Vector3.up * 0.1f;
+				player.rigidbody.velocity = player.rigidbody.velocity.SetY(this.bouncyForce);
 			}
 		}
 	}
