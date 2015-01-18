@@ -39,8 +39,9 @@ public class MovingBlock : MonoBehaviour {
 		Player p = c.gameObject.GetComponent<Player>();
 		if (p != null) {
 			GameObject thingBeingStoodOn;
-			p.isGrounded(out thingBeingStoodOn);
-			if (thingBeingStoodOn == this.gameObject) {
+			bool grounded = p.IsGrounded(out thingBeingStoodOn);
+
+			if (grounded && thingBeingStoodOn == this.gameObject) {
 				this.triggerOnPlayerTouch = false;
 			}
 		}

@@ -26,18 +26,10 @@ public class Player : MonoBehaviour {
 	public GameObject deathParticlesPrefab;
 	public Texture whiteTexture;
 
-<<<<<<< HEAD
-	float prevFireAxis = 0;
-
 	public AudioClip jumpSound;
 
-	void Start () {
-		this.GetComponent<Damageable>().OnDeath += OnDeath;
-	}
-=======
 	private Damageable damagable;
 	private float prevFireAxis = 0;
->>>>>>> 770d5bbf0d416111f7b31406feb606ae65ea189e
 
 	private bool flash = false;
 	private bool deathShakeFinished = false;
@@ -72,7 +64,7 @@ public class Player : MonoBehaviour {
 
 		// Allow jumping.
 		if (Input.GetAxis("Fire1") > 0) {
-			if (this.isGrounded()) {
+			if (this.IsGrounded()) {
 				//Start the jump.
 				AudioSource.PlayClipAtPoint(this.jumpSound, this.transform.position);
 
