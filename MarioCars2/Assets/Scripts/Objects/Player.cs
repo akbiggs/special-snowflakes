@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
 
 	public AudioClip jumpSound;
 	public AudioClip[] landSounds;
+	public AudioClip deathSound;
 
 	private Damageable damagable;
 	private float prevFireAxis = 0;
@@ -83,8 +84,9 @@ public class Player : MonoBehaviour {
 		this.prevFireAxis = Input.GetAxis("Fire1");
 
 		//Check if player just landed.
-		if (!this.wasGrounded && isGrounded) {
-			AudioSource.PlayClipAtPoint(this.landSounds[Random.Range(0, this.landSounds.Length)], this.transform.position);
+		if (!this.wasGrounded && isGrounded && !damagable.IsDead) {
+			Debug.Log("Playing hit land sound");
+			//AudioSource.PlayClipAtPoint(this.landSounds[Random.Range(0, this.landSounds.Length)], this.transform.position);
 		}
 		this.wasGrounded = isGrounded;
 
@@ -104,6 +106,9 @@ public class Player : MonoBehaviour {
 		Time.timeScale = 0.00f;
 		this.deathTime = Time.realtimeSinceStartup;
 		this.deathCameraPosition = Camera.main.transform.position;
+
+		Debug.Log("DEAD");
+		AudioSource.PlayClipAtPoint(this.deathSound, this.transform.position);
 	}
 
 	private void DuringDeath() {

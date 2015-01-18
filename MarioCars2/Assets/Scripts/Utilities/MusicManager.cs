@@ -14,7 +14,6 @@ public class MusicManager : MonoBehaviour {
 	}
 
 	void Awake() {
-		Debug.Log ("GOT HERE 2");
 		if (instance != null && instance != this) {
 			Destroy(this.gameObject);
 			return;
@@ -29,7 +28,6 @@ public class MusicManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("GOT HERE 1");
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		this.audioLevel = audioSources[0];
 		this.audioMenu = audioSources[1];
