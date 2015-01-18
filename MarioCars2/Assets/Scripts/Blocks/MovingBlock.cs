@@ -36,8 +36,14 @@ public class MovingBlock : MonoBehaviour {
 	}
 
 	public void OnCollisionEnter(Collision c) {
-		if (c.gameObject.GetComponent<Player>() != null) {
-			this.triggerOnPlayerTouch = false;
+		Player p = c.gameObject.GetComponent<Player>();
+		if (p != null) {
+			GameObject thingBeingStoodOn;
+			bool grounded = p.IsGrounded(out thingBeingStoodOn);
+
+			if (grounded && thingBeingStoodOn == this.gameObject) {
+				this.triggerOnPlayerTouch = false;
+			}
 		}
 	}
 
