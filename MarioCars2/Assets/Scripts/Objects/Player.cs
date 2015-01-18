@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
 
 	float prevFireAxis = 0;
 
+	public AudioClip jumpSound;
+
 	void Start () {
 		this.GetComponent<Damageable>().OnDeath += OnDeath;
 	}
@@ -49,6 +51,9 @@ public class Player : MonoBehaviour {
 		// Allow jumping.
 		if (Input.GetAxis("Fire1") > 0) {
 			if (this.isGrounded()) {
+				//Start the jump.
+				AudioSource.PlayClipAtPoint(this.jumpSound, this.transform.position);
+
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
 		} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
