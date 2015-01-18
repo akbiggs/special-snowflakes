@@ -4,6 +4,7 @@ using System.Collections;
 public class Coin : MonoBehaviour {
 	public float rotationSpeed;
 	public int coinValue;
+	public GameObject sparkle;
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +18,10 @@ public class Coin : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider) {
 		if (collider.gameObject.GetComponent<Player>() != null) {
-			Destroy(this.gameObject);
+			GameObject obj = (GameObject)GameObject.Instantiate(this.sparkle);
+			obj.transform.position = this.transform.position;
 			LevelState.Instance.score += this.coinValue;
+			GameObject.Destroy(this.gameObject);
 		}
 	}
 }
