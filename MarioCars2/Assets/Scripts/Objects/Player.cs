@@ -63,6 +63,10 @@ public class Player : MonoBehaviour {
 		}
 
 		this.animator.SetFloat("Speed", direction.magnitude);
+
+		if (this.transform.position.y < -200) {
+			this.GetComponent<Damageable>().Die();
+		}
 	}
 
 	public bool isGrounded() {
