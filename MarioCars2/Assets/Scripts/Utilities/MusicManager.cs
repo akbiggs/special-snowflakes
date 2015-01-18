@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// TODO: make this a unity singleton
 public class MusicManager : MonoBehaviour {
 	private static MusicManager instance = null;
 	
