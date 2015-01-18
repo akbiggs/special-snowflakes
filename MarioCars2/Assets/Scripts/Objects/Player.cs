@@ -86,7 +86,7 @@ public class Player : MonoBehaviour {
 		//Check if player just landed.
 		if (!this.wasGrounded && isGrounded && !damagable.IsDead) {
 			Debug.Log("Playing hit land sound");
-			//AudioSource.PlayClipAtPoint(this.landSounds[Random.Range(0, this.landSounds.Length)], this.transform.position);
+			AudioSource.PlayClipAtPoint(this.landSounds[Random.Range(0, this.landSounds.Length)], this.transform.position);
 		}
 		this.wasGrounded = isGrounded;
 
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour {
 		this.deathTime = Time.realtimeSinceStartup;
 		this.deathCameraPosition = Camera.main.transform.position;
 
-		Debug.Log("DEAD");
+		Debug.Log("Should be playing dead sound");
 		AudioSource.PlayClipAtPoint(this.deathSound, this.transform.position);
 	}
 

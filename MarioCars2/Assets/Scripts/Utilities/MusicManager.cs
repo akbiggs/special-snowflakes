@@ -9,6 +9,8 @@ public class MusicManager : MonoBehaviour {
 
 	public AudioSource startingMusic;
 
+	public AudioClip deathSound;
+
 	public static MusicManager Instance {
 		get { return instance; }
 	}
@@ -50,6 +52,10 @@ public class MusicManager : MonoBehaviour {
 			this.audioMenu.Stop();
 			this.audioLevel.Play();
 		}
+	}
+
+	public void PlayDeathSound() {
+		AudioSource.PlayClipAtPoint(this.deathSound, Vector3.zero);
 	}
 }
 
