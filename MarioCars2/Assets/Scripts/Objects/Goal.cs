@@ -6,11 +6,18 @@ public class Goal : MonoBehaviour {
 	public Animator animator;
 	bool activated = false;
 
-	public string level;	
+	public string level;
+
+	public bool showAnimation = true;
 
 	void OnCollisionEnter(Collision collision) {
 		Player player = collision.gameObject.GetComponent<Player>();
 		if (player != null && !this.activated) {
+			if (!this.showAnimation) {
+				OnAnimationFinish();
+				return;
+			}
+
 			this.GetComponent<AudioSource>().Play();
 
 			this.activated = true;
