@@ -37,8 +37,10 @@ public class Player : MonoBehaviour {
 	private bool deathShakeFinished = false;
 	private Vector3 deathCameraPosition;
 	private float deathTime;
+	public float bounceTime;
 
 	private bool wasGrounded;
+	public bool bouncing { get { return Time.time - this.bounceTime < 0.1; } }
 
 	void Start () {
 		this.damagable = this.GetComponent<Damageable>();
@@ -70,24 +72,27 @@ public class Player : MonoBehaviour {
 		bool isGrounded = this.IsGrounded();
 
 		// Allow jumping.
-		if (Input.GetAxis("Fire1") > 0) {
-			if (isGrounded) {
-				//Start the jump.
-				AudioSource.PlayClipAtPoint(this.jumpSound, this.transform.position);
+		if (!this.bouncing) {
+			if (Input.GetAxis("Fire1") > 0) {
+				if (isGrounded) {
+					//Start the jump.
+					AudioSource.PlayClipAtPoint(this.jumpSound, this.transform.position);
 
-				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
+					this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
+				}
+			} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
+				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 			}
-		} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
-			this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpReleaseMax);
 		}
 
 		this.prevFireAxis = Input.GetAxis("Fire1");
 
 		//Check if player just landed.
-		if (!this.wasGrounded && isGrounded && !damagable.IsDead) {
+		if (!this.wasGrounded && isGrounded && !damagable.IsDead && !this.bouncing) {
 			Debug.Log("Playing hit land sound");
 			AudioSource.PlayClipAtPoint(this.landSounds[Random.Range(0, this.landSounds.Length)], this.transform.position);
 		}
+
 		this.wasGrounded = isGrounded;
 
 		// Rotate the player to face the direction it is moving.
