@@ -25,9 +25,5 @@ public class PlayerCamera : MonoBehaviour {
 			                                                        this.rotationSpeed * Time.fixedDeltaTime);
 		}
 	}
-
-	void OnDestroy() {
-		//This should fade out to sound better.
-		this.GetComponent<AudioSource>().Stop();
-	}
+	
 }

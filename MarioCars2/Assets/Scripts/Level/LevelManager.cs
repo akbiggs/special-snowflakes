@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LevelManager : Singleton<LevelManager> {
-
+	
 	private string currentLevel;
-
-	private List<string> remainingLevels = new List<string>() { "FinishedLevelH" };
+	
 	public int score;
 
 	protected LevelManager() { }
@@ -15,12 +14,12 @@ public class LevelManager : Singleton<LevelManager> {
 		Application.LoadLevel(Application.loadedLevelName);
 	}
 
-	public bool NextLevel() {
-		if (this.remainingLevels.Count > 0) {
-			Application.LoadLevel(remainingLevels.Pop());
-			return true;
-		}
+	public void GoToLevel(string level) {
+		if (level.Contains("Hub"))
+			MusicManager.Instance.playMenuMusic();
+		else
+		    MusicManager.Instance.playLevelMusic();
 
-		return false;
+		Application.LoadLevel(level);
 	}
 }
