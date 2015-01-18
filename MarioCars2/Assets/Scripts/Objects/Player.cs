@@ -26,6 +26,9 @@ public class Player : MonoBehaviour {
 	public GameObject deathParticlesPrefab;
 	public Texture whiteTexture;
 
+	public AudioClip jumpSound;
+	public AudioClip[] landSounds;
+
 	private Damageable damagable;
 	private float prevFireAxis = 0;
 
@@ -34,9 +37,12 @@ public class Player : MonoBehaviour {
 	private Vector3 deathCameraPosition;
 	private float deathTime;
 
+	private bool wasGrounded;
+
 	void Start () {
 		this.damagable = this.GetComponent<Damageable>();
 		this.damagable.OnDeath += OnDeath;
+		this.wasGrounded = true;
 	}
 	
 	void Update () {
@@ -60,9 +66,14 @@ public class Player : MonoBehaviour {
 		float force = this.IsGrounded() ? this.movementForce : this.midairForce; 
 		this.rigidbody.AddForce(diff * force);
 
+		bool isGrounded = this.IsGrounded();
+
 		// Allow jumping.
 		if (Input.GetAxis("Fire1") > 0) {
-			if (this.IsGrounded()) {
+			if (isGrounded) {
+				//Start the jump.
+				AudioSource.PlayClipAtPoint(this.jumpSound, this.transform.position);
+
 				this.rigidbody.velocity = this.rigidbody.velocity.SetY(this.jumpPower);
 			}
 		} else if (this.prevFireAxis > 0 && this.rigidbody.velocity.y > this.jumpReleaseMax) {
@@ -70,6 +81,12 @@ public class Player : MonoBehaviour {
 		}
 
 		this.prevFireAxis = Input.GetAxis("Fire1");
+
+		//Check if player just landed.
+		if (!this.wasGrounded && isGrounded) {
+			AudioSource.PlayClipAtPoint(this.landSounds[Random.Range(0, this.landSounds.Length)], this.transform.position);
+		}
+		this.wasGrounded = isGrounded;
 
 		// Rotate the player to face the direction it is moving.
 		this.animator.SetFloat("Speed", direction.magnitude);
