@@ -13,9 +13,11 @@ public class Goal : MonoBehaviour {
 			this.animator.SetBool("On", true);
 
 			player.gameObject.SetActive(false);
-			Camera.main.gameObject.SetActive(false);
-			
-			//LevelManager.Instance.NextLevel();
+			Camera.main.gameObject.SetActive(false);			
 		}
+	}
+
+	void OnAnimationFinish() {
+		LevelManager.Instance.NextLevel();
 	}
 }
