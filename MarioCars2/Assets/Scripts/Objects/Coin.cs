@@ -5,11 +5,6 @@ public class Coin : MonoBehaviour {
 	public float rotationSpeed;
 	public int coinValue;
 	public GameObject sparkle;
-
-	// Use this for initialization
-	void Start () {
-		renderer.material.color = new Color(1f,1f,0);
-	}
 	
 	// Update is called once per frame
 	void Update () {
