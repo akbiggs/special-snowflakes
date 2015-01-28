@@ -10,12 +10,13 @@ public class MusicManager : MonoBehaviour {
 
 	public AudioSource startingMusic;
 
+	public AudioClip deathSound;
+
 	public static MusicManager Instance {
 		get { return instance; }
 	}
 
 	void Awake() {
-		Debug.Log ("GOT HERE 2");
 		if (instance != null && instance != this) {
 			Destroy(this.gameObject);
 			return;
@@ -30,7 +31,6 @@ public class MusicManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("GOT HERE 1");
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		this.audioLevel = audioSources[0];
 		this.audioMenu = audioSources[1];
@@ -53,6 +53,10 @@ public class MusicManager : MonoBehaviour {
 			this.audioMenu.Stop();
 			this.audioLevel.Play();
 		}
+	}
+
+	public void PlayDeathSound() {
+		AudioSource.PlayClipAtPoint(this.deathSound, Vector3.zero);
 	}
 }
 
