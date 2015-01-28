@@ -5,6 +5,7 @@ public class Shooter : Enemy {
 
 	public float fireInterval = 1f;
 	public float visionDistance = 1f;
+	public float minShootDistance = 0f;
 
 	public GameObject bulletPrefab;
 
@@ -26,7 +27,7 @@ public class Shooter : Enemy {
 		bool hitObject = false;
 
 		if (Physics.Raycast(this.transform.position, visionDirection, out hit, this.visionDistance)) {
-			if (hit.collider.gameObject.GetComponent<Damageable>() != null) {
+			if (hit.distance > this.minShootDistance && hit.collider.gameObject.GetComponent<Damageable>() != null) {
 				hitObject = true;
 
 				this.fireTimer += Time.deltaTime;
