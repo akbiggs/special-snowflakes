@@ -10,9 +10,12 @@ public class Damageable : MonoBehaviour {
 	public event Action OnDeath;
 	public bool IsDead { get { return this.health <= 0; } }
 
+	private bool hasDied = false;
+
 	public void Damage(int damage) {
 		this.health -= damage;
-		if (this.IsDead) {
+		if (this.IsDead && !this.hasDied) {
+			this.hasDied = true;
 			this.Die();
 		}
 	}
